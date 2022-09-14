@@ -198,7 +198,7 @@ class TestLoginFrom:
         # Click button
         button = driver.find_element(by=By.XPATH, value=".//button[@type='submit']")
         button.click()
-        sleep(2)
+        sleep(3)
 
         # Verify error
         error_element = driver.find_element(by=By.XPATH,

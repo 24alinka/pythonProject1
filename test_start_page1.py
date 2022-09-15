@@ -1,4 +1,3 @@
-import logging
 import random
 import string
 from time import sleep
@@ -6,8 +5,6 @@ from time import sleep
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
-log = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope="class")
@@ -44,7 +41,7 @@ class TestLoginFrom:
         # Fill UserName
         user_name = driver.find_element(by=By.XPATH, value=".//input[@id='username-register']")
         user_name.send_keys("test test")
-        sleep(3)
+        sleep(1)
         # Verify error
         error_element = driver.find_element(by=By.XPATH,
                                             value=".//*[contains(text(), 'Username can only contain letters and numbers.')]")
@@ -68,7 +65,7 @@ class TestLoginFrom:
         # Fill password
         pass_name = driver.find_element(by=By.XPATH, value=".//input[@id='password-register']")
         pass_name.send_keys("test123")
-        sleep(3)
+        sleep(1)
 
         # Verify error
         error_element = driver.find_element(by=By.XPATH,
@@ -97,22 +94,22 @@ class TestLoginFrom:
         # Fill UserName
         user_name = driver.find_element(by=By.XPATH, value=".//input[@id='username-register']")
         user_name.send_keys(random_name)
-        sleep(2)
+        sleep(1)
 
         # Fill email
         user_email = driver.find_element(by=By.XPATH, value=".//input[@id='email-register']")
         user_email.send_keys(random_email, "@gmail.com")
-        sleep(2)
+        sleep(1)
 
         # Fill password
         psw_email = driver.find_element(by=By.XPATH, value=".//input[@id='password-register']")
         psw_email.send_keys(random_psw)
-        sleep(2)
+        sleep(1)
 
         # Click button
         button = driver.find_element(by=By.XPATH, value=".//button[@type='submit']")
         button.click()
-        sleep(2)
+        sleep(1)
 
         # Successful registration
         hello_text = driver.find_element(by=By.XPATH, value=".//*[contains(text(),'Hello')]")
@@ -139,23 +136,22 @@ class TestLoginFrom:
         # Fill UserName
         user_name = driver.find_element(by=By.XPATH, value=".//input[@id='username-register']")
         user_name.send_keys("TestAlinkatest")
-        sleep(2)
+        sleep(1)
 
         # Fill email
         user_email = driver.find_element(by=By.XPATH, value=".//input[@id='email-register']")
         user_email.send_keys("testalinka-tets@@gmail.com")
-        log.info(user_email)
-        sleep(2)
+        sleep(1)
 
         # Fill password
         psw_email = driver.find_element(by=By.XPATH, value=".//input[@id='password-register']")
         psw_email.send_keys("testA12345testtest")
-        sleep(2)
+        sleep(1)
 
         # Click button
         button = driver.find_element(by=By.XPATH, value=".//button[@type='submit']")
         button.click()
-        sleep(2)
+        sleep(1)
 
         # Verify error
         error_element = driver.find_element(by=By.XPATH,
@@ -183,22 +179,22 @@ class TestLoginFrom:
         # Fill UserName
         user_name = driver.find_element(by=By.XPATH, value=".//input[@id='username-register']")
         user_name.send_keys(random_name)
-        sleep(2)
+        sleep(1)
 
         # Fill email
         user_email = driver.find_element(by=By.XPATH, value=".//input[@id='email-register']")
         user_email.send_keys("testalinka-tets@gmail.com")
-        sleep(2)
+        sleep(1)
 
         # Fill password
         psw_email = driver.find_element(by=By.XPATH, value=".//input[@id='password-register']")
         psw_email.send_keys(random_psw)
-        sleep(2)
+        sleep(1)
 
         # Click button
         button = driver.find_element(by=By.XPATH, value=".//button[@type='submit']")
         button.click()
-        sleep(3)
+        sleep(1)
 
         # Verify error
         error_element = driver.find_element(by=By.XPATH,

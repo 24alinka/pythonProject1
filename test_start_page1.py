@@ -69,7 +69,7 @@ class TestStartPage:
         self.log.info("Signed Up as user %s", username_value)
         sleep(2)
         # Verify error message
-        start_page.verify_email_error()
+        start_page.verify_email_error2()
         self.log.info("Error was verified")
 
     def test_same_email(self, start_page):

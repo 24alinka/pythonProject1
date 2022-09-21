@@ -77,9 +77,13 @@ class StartPage(BasePage):
         sleep(2)
 
     def verify_email_error(self):
-        """Verify invalid Email error"""
+        """Verify twice same Email error"""
         assert self.get_element_text(
-            self.constants.HINT_EMAIL_ERROR_XPATH) == self.constants.HINT_EMAIL_ERROR_TEXT, \
-            f"Actual message: {self.get_element_text(self.constants.HINT_EMAIL_ERROR_XPATH)}"
+            self.constants.HINT_EMAIL_XPATH2) == self.constants.HINT_EMAIL_TEXT2, \
+            f"Actual message: {self.get_element_text(self.constants.HINT_EMAIL_XPATH2)}"
 
-
+    def verify_email_error2(self):
+        """Verify invalid  Email error"""
+        assert self.get_element_text(
+            self.constants.HINT_EMAIL_XPATH) == self.constants.HINT_EMAIL_TEXT, \
+            f"Actual message: {self.get_element_text(self.constants.HINT_EMAIL_XPATH)}"

@@ -1,5 +1,4 @@
 import logging
-from time import sleep
 
 import pytest
 from selenium import webdriver
@@ -16,10 +15,11 @@ class TestStartPage:
     def start_page(self):
         driver = webdriver.Chrome(DRIVER_PATH)
         driver.get(BASE_URL)
+        driver.implicitly_wait(1)
         yield StartPage(driver)
         driver.close()
 
-    def test_incorrect_name(self, start_page):
+    def test_incorrect_name_sign_up(self, start_page):
         # Fill UserName
         user = random_str()
         username_value = "test test"
@@ -27,12 +27,11 @@ class TestStartPage:
         password_value = f"{random_str(6)}{random_num()}"
         start_page.sign_up(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
-        sleep(2)
         # Verify name error
         start_page.verify_name_error()
         self.log.info("Error was verified")
 
-    def test_incorrect_password(self, start_page):
+    def test_incorrect_password_sign_up(self, start_page):
         # Fill Password
         user = random_str()
         username_value = f"{user}{random_num()}"
@@ -44,35 +43,33 @@ class TestStartPage:
         start_page.verify_password_error()
         self.log.info("Error was verified")
 
-    def test_valid_data(self, start_page):
+    def test_valid_data_sign_up(self, start_page):
         # Prepare data
         user = random_str()
         username_value = f"{user}{random_num()}"
         email_value = f"{user}{random_num()}@mail.com"
         password_value = f"{random_str(6)}{random_num()}"
         # Sign Up as a user
-        start_page.sign_up(username_value, email_value, password_value)
+        hello_page = start_page.sign_up_and_verify(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
-        sleep(2)
         # Verify success message
-        start_page.verify_success_sign_up(username_value)
+        hello_page.verify_success_sign_up(username_value)
         self.log.info("Hello message was verified")
 
-    def test_invalid_email(self, start_page):
+    def test_invalid_email_sign_up(self, start_page):
         # Prepare data
         user = random_str()
         username_value = f"{user}{random_num()}"
         email_value = f"{user}{random_num()}@@mail.com"
         password_value = f"{random_str(6)}{random_num()}"
         # Sign Up as a user
-        start_page.sign_up(username_value, email_value, password_value)
+        start_page.sign_up_and_verify(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
-        sleep(2)
         # Verify error message
         start_page.verify_email_error2()
         self.log.info("Error was verified")
 
-    def test_same_email(self, start_page):
+    def test_same_email_sign_up(self, start_page):
         # Prepare data
         user = random_str()
         username_value = f"{user}{random_num()}"
@@ -81,7 +78,20 @@ class TestStartPage:
         # Sign Up as a user
         start_page.sign_up(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
-        sleep(2)
         # Verify error message
         start_page.verify_email_error()
         self.log.info("Error was verified")
+
+    def test_incorrect_login(self, start_page):
+        start_page.sign_in("testtest11", "123456789testt")
+        self.log.info("Logged in as non-existing user")
+        # Verify error
+        start_page.verify_incorrect_sign_in()
+        self.log.info("Error was verified")
+
+    def test_valid_login(self, start_page):
+        hello_page = start_page.sign_in("tsetAlinkaTest", "testtesttest")
+        self.log.info("Login with valid data")
+        # Verify successful Login
+        hello_page.successful_login_with_verify()
+        self.log.info("User Login")

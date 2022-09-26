@@ -25,7 +25,7 @@ class TestStartPage:
         username_value = "test test"
         email_value = f"{user}{random_num()}@mail.com"
         password_value = f"{random_str(6)}{random_num()}"
-        start_page.sign_up(username_value, email_value, password_value)
+        start_page.sign_up_and_fail(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
         # Verify name error
         start_page.verify_name_error()
@@ -37,7 +37,7 @@ class TestStartPage:
         username_value = f"{user}{random_num()}"
         email_value = f"{user}{random_num()}@mail.com"
         password_value = f"{random_str(6)}"
-        start_page.sign_up(username_value, email_value, password_value)
+        start_page.sign_up_and_fail(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
         # Verify password error
         start_page.verify_password_error()
@@ -63,7 +63,7 @@ class TestStartPage:
         email_value = f"{user}{random_num()}@@mail.com"
         password_value = f"{random_str(6)}{random_num()}"
         # Sign Up as a user
-        start_page.sign_up_and_verify(username_value, email_value, password_value)
+        start_page.sign_up_and_fail(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
         # Verify error message
         start_page.verify_email_error2()
@@ -76,22 +76,8 @@ class TestStartPage:
         email_value = "testalinka-tets@gmail.com"
         password_value = f"{random_str(6)}{random_num()}"
         # Sign Up as a user
-        start_page.sign_up(username_value, email_value, password_value)
+        start_page.sign_up_and_fail(username_value, email_value, password_value)
         self.log.info("Signed Up as user %s", username_value)
         # Verify error message
         start_page.verify_email_error()
         self.log.info("Error was verified")
-
-    def test_incorrect_login(self, start_page):
-        start_page.sign_in("testtest11", "123456789testt")
-        self.log.info("Logged in as non-existing user")
-        # Verify error
-        start_page.verify_incorrect_sign_in()
-        self.log.info("Error was verified")
-
-    def test_valid_login(self, start_page):
-        hello_page = start_page.sign_in("tsetAlinkaTest", "testtesttest")
-        self.log.info("Login with valid data")
-        # Verify successful Login
-        hello_page.successful_login_with_verify()
-        self.log.info("User Login")

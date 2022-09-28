@@ -1,23 +1,10 @@
 import logging
 
-import pytest
-from selenium import webdriver
-
-from constants.base import DRIVER_PATH, BASE_URL
-from pages.start_page import StartPage
-from pages.utils import random_str, random_num
+from pages.utils import User
 
 
 class TestStartPage:
     log = logging.getLogger("[StartPage]")
-
-    @pytest.fixture(scope="function")
-    def start_page(self):
-        driver = webdriver.Chrome(DRIVER_PATH)
-        driver.get(BASE_URL)
-        driver.implicitly_wait(1)
-        yield StartPage(driver)
-        driver.close()
 
     def test_incorrect_name(self, start_page):
         """
@@ -34,17 +21,15 @@ class TestStartPage:
             - Close driver
         """
         # Fill UserName
-        user = random_str()
-        username_value = "test test"
-        email_value = f"{user}{random_num()}@mail.com"
-        password_value = f"{random_str(6)}{random_num()}"
-        start_page.sign_up_and_fail(username_value, email_value, password_value)
-        self.log.info("Signed Up as user %s", username_value)
-        # Verify name error
+        user = User()
+        user.fill_data(username="ttest tset")
+        # Sign Up as a user
+        start_page.click_sign_up_not_valid(user)
+        # Verify error message
         start_page.verify_name_error()
         self.log.info("Error was verified")
 
-    def test_incorrect_password(self, start_page, random_user):
+    def test_incorrect_password(self, start_page):
         """
         - Pre-conditions:
             - Create driver
@@ -58,10 +43,13 @@ class TestStartPage:
         - Post-conditions:
             - Close driver
         """
-        # Fill Password
-        hello_page = start_page.sign_up_and_fail(random_user)
-        # Verify password error
-        hello_page.verify_password_error(random_user.username)
+        user = User()
+        user.fill_data(password="ttesttset")
+        # Sign Up as a user
+        start_page.click_sign_up_not_valid(user)
+        # Verify error message
+        start_page.verify_password_error()
+        self.log.info("Error was verified")
 
     def test_valid_data(self, start_page, random_user):
         """
@@ -98,13 +86,10 @@ class TestStartPage:
             - Close driver
         """
         # Prepare data
-        user = random_str()
-        username_value = f"{user}{random_num()}"
-        email_value = f"{user}{random_num()}@@mail.com"
-        password_value = f"{random_str(6)}{random_num()}"
+        user = User()
+        user.fill_data(email="test@@test.estst")
         # Sign Up as a user
-        start_page.sign_up_and_fail(username_value, email_value, password_value)
-        self.log.info("Signed Up as user %s", username_value)
+        start_page.click_sign_up_not_valid(user)
         # Verify error message
         start_page.verify_email_error2()
         self.log.info("Error was verified")
@@ -124,13 +109,10 @@ class TestStartPage:
             - Close driver
         """
         # Prepare data
-        user = random_str()
-        username_value = f"{user}{random_num()}"
-        email_value = "testalinka-tets@gmail.com"
-        password_value = f"{random_str(6)}{random_num()}"
+        user = User()
+        user.fill_data(email="testalinka-tets@gmail.com")
         # Sign Up as a user
-        start_page.sign_up_and_fail(username_value, email_value, password_value)
-        self.log.info("Signed Up as user %s", username_value)
+        start_page.click_sign_up_not_valid(user)
         # Verify error message
         start_page.verify_email_error()
         self.log.info("Error was verified")

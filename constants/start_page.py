@@ -10,7 +10,7 @@ class StartPageConstants:
     # Hints for Sign Up
     SIGN_UP_HINT_PASSWORD_XPATH = ".//*[contains(text(), 'Password must be at least 12 characters.')]"
     SIGN_UP_HINT_PASSWORD_TEXT = "Password must be at least 12 characters."
-    SIGN_UP_HINT_EMAIL_XPATH = ".//*[contains(text(), 'You must provide a valid email address.')]"
+    SIGN_UP_HINT_EMAIL_XPATH = ".//div[@class = 'alert alert-danger small']"
     SIGN_UP_HINT_EMAIL_XPATH2 = ".//*[contains(text(), 'That email is already being used.')]"
     SIGN_UP_HINT_EMAIL_TEXT = "You must provide a valid email address."
     SIGN_UP_HINT_EMAIL_TEXT2 = "That email is already being used."

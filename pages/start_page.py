@@ -37,14 +37,7 @@ class StartPage(BasePage):
             self.constants.SIGN_IN_LOGIN_ERROR_XPATH) == self.constants.SIGN_IN_LOGIN_ERROR_TEXT, \
             f"Actual message: {self.get_element_text(self.constants.SIGN_IN_LOGIN_ERROR_XPATH)}"
 
-    @wait_until_ok(period=0.5)
-    def click_sign_up_and_verify(self):
-        """Click Sign Up button and verify"""
-        # Click button
-        self.click(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
-        assert not self.is_exists(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
-
-    @wait_until_ok(period=0.5)
+    @wait_until_ok(period=0.1)
     def click_sign_in_and_verify(self):
         """Click Sign In button and verify"""
         # Click button
@@ -59,10 +52,30 @@ class StartPage(BasePage):
         self.fill_field(xpath=self.constants.SIGN_UP_EMAIL_FIELD_XPATH, value=user.email)
         self.fill_field(xpath=self.constants.SIGN_UP_PASSWORD_FIELD_XPATH, value=user.password)
         # Click button
+        from time import sleep
+        sleep(1)
         self.click_sign_up_and_verify()
         # Return new page
         from pages.hello_page import HelloPage
         return HelloPage(self.driver)
+
+    def click_sign_up_and_verify(self):
+        """Click Sign Up button and verify"""
+        # Click button
+        self.click(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
+
+    @wait_until_ok(period=0.1)
+    def click_sign_up_not_valid(self, user):
+        """Sign up with invalid data"""
+        # Fill data
+        self.fill_field(xpath=self.constants.SIGN_UP_USERNAME_FIELD_XPATH, value=user.username)
+        self.fill_field(xpath=self.constants.SIGN_UP_EMAIL_FIELD_XPATH, value=user.email)
+        self.fill_field(xpath=self.constants.SIGN_UP_PASSWORD_FIELD_XPATH, value=user.password)
+        # Click button
+        from time import sleep
+        sleep(1)
+        self.click(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
+        assert self.is_exists(xpath=self.constants.SIGN_UP_BUTTON_XPATH)
 
     @log_decorator
     def sign_up_and_fail(self, login, email, password):

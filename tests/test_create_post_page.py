@@ -16,7 +16,7 @@ class TestCreatePostPage:
     def test_create_post_page(self, hello_page):
         """
         - Pre-conditions:
-            - Sign Up/Sign In as an user
+            - Sign Up/Sign In as a user
         - Steps:
             - Navigate to create Post Page
             - Create Post
@@ -35,7 +35,7 @@ class TestCreatePostPage:
     def test_delete_post(self, hello_page):
         """
         - Pre-conditions:
-            - Sign Up as an user
+            - Sign Up as a user
         - Steps:
             - Navigate to create Post Page
             - Create Post
@@ -60,7 +60,7 @@ class TestCreatePostPage:
     def test_edit_post(self, hello_page):
         """
         - Pre-conditions:
-            - Sign Up as an user
+            - Sign Up as a user
         - Steps:
             - Navigate to create Post Page
             - Create Post
@@ -86,10 +86,10 @@ class TestCreatePostPage:
     def test_create_a_unique_post(self, hello_page):
         """
         - Pre-conditions:
-            - Sign Up as an user
+            - Sign Up as a user
         - Steps:
             - Navigate to create Post Page
-            - Create unigue post
+            - Create unique post
             - Verify the result
         """
         # Navigate to create Post Page
@@ -97,7 +97,7 @@ class TestCreatePostPage:
         # Create Post
         post = Post()
         post.fill_default()
-        create_post_page.click_checkbox(post)
+        create_post_page.create_post_with_click_checkbox(post)
         # Verify the result
         create_post_page.verify_successfully_created()
         self.log.info("The post was sent successfully")

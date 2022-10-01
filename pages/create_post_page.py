@@ -51,7 +51,7 @@ class CreatePostPage(BasePage):
         assert self.get_element_text(xpath=self.constants.BODY_FIELD_XPATH) == self.constants.UPDATE_POST_BODY_TEXT
         f"Actual message: {self.get_element_text(xpath=self.constants.BODY_FIELD_XPATH)}"
 
-    def click_checkbox(self, post):
+    def create_post_with_click_checkbox(self, post):
         """Create post with unique checkbox"""
         self.fill_field(xpath=self.constants.TITLE_FIELD_XPATH, value=post.title)
         self.fill_field(xpath=self.constants.BODY_FIELD_XPATH, value=post.body)

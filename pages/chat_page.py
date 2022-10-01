@@ -18,3 +18,9 @@ class ChatPage(BasePage):
         """Verify success message"""
         assert self.get_element_text(xpath=self.constants.CHAT_MESSAGE_XPATH) == message, \
             f"Actual: {self.get_element_text(xpath=self.constants.CHAT_MESSAGE_XPATH)}"
+
+    def close_chat_button(self, message):
+        """Close chat button, after successfully sending a message"""
+        assert self.get_element_text(xpath=self.constants.CHAT_MESSAGE_XPATH) == message, \
+            f"Actual: {self.get_element_text(xpath=self.constants.CHAT_MESSAGE_XPATH)}"
+        self.click(xpath=self.constants.CHAT_CLOSE_BUTTON_XPATH)

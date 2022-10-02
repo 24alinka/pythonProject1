@@ -57,3 +57,34 @@ class CreatePostPage(BasePage):
         self.fill_field(xpath=self.constants.BODY_FIELD_XPATH, value=post.body)
         self.click(xpath=self.constants.CHECKBOX_XPATH)
         self.click(xpath=self.constants.CREATE_POST_BUTTON_XPATH)
+
+    def select(self, post, select_value):
+        """Open select and choose a value"""
+        self.fill_field(xpath=self.constants.TITLE_FIELD_XPATH, value=post.title)
+        self.fill_field(xpath=self.constants.BODY_FIELD_XPATH, value=post.body)
+        self.select_field(xpath=self.constants.POST_SELECT_XPATH, value=select_value)
+        self.click(xpath=self.constants.CREATE_POST_BUTTON_XPATH)
+
+    def verify_private_option(self):
+        """Verify the post is private message"""
+        assert self.get_element_text(
+            xpath=self.constants.POST_SELECT_PRIVATE_XPATH) == self.constants.POST_SELECT_PRIVATE_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.POST_SELECT_PRIVATE_XPATH)}"
+        assert self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH) == self.constants.SUCCESS_MESSAGE_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH)}"
+
+    def verify_group_message_option(self):
+        """Verify the post is private message"""
+        assert self.get_element_text(
+            xpath=self.constants.POST_SELECT_GROUP_MESSAGE_XPATH) == self.constants.POST_SELECT_GROUP_MESSAGE_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.POST_SELECT_GROUP_MESSAGE_XPATH)}"
+        assert self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH) == self.constants.SUCCESS_MESSAGE_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH)}"
+
+    def verify_all_users_option(self):
+        """Verify the post is private message"""
+        assert self.get_element_text(
+            xpath=self.constants.POST_SELECT_ALL_USERS_XPATH) == self.constants.POST_SELECT_ALL_USERS_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.POST_SELECT_ALL_USERS_XPATH)}"
+        assert self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH) == self.constants.SUCCESS_MESSAGE_TEXT, \
+            f"Actual: {self.get_element_text(xpath=self.constants.SUCCESS_MESSAGE_XPATH)}"

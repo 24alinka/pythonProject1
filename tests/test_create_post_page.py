@@ -101,3 +101,60 @@ class TestCreatePostPage:
         # Verify the result
         create_post_page.verify_successfully_created()
         self.log.info("The post was sent successfully")
+
+    def test_create_a_private_post(self, hello_page):
+        """
+        - Pre-conditions:
+            - Sign Up as a user
+        - Steps:
+            - Navigate to create Post Page
+            - Create private message
+            - Verify the result
+        """
+        # Navigate to create Post Page
+        create_post_page = hello_page.header.navigate_to_create_post_page()
+        # Create Post
+        post = Post()
+        post.fill_default()
+        create_post_page.select(post, select_value="Приватне повідомлення")
+        # Verify the result
+        create_post_page.verify_private_option()
+        self.log.info("The post was sent successfully")
+
+    def test_create_a_group_post(self, hello_page):
+        """
+        - Pre-conditions:
+            - Sign Up as a user
+        - Steps:
+            - Navigate to create Post Page
+            - Create group message
+            - Verify the result
+        """
+        # Navigate to create Post Page
+        create_post_page = hello_page.header.navigate_to_create_post_page()
+        # Create Post
+        post = Post()
+        post.fill_default()
+        create_post_page.select(post, select_value="Групове повідомлення")
+        # Verify the result
+        create_post_page.verify_group_message_option()
+        self.log.info("The post was sent successfully")
+
+    def test_create_all_users_post(self, hello_page):
+        """
+        - Pre-conditions:
+            - Sign Up as a user
+        - Steps:
+            - Navigate to create Post Page
+            - Create all users message
+            - Verify the result
+        """
+        # Navigate to create Post Page
+        create_post_page = hello_page.header.navigate_to_create_post_page()
+        # Create Post
+        post = Post()
+        post.fill_default()
+        create_post_page.select(post, select_value="Загальнодоступне")
+        # Verify the result
+        create_post_page.verify_all_users_option()
+        self.log.info("The post was sent successfully")

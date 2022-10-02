@@ -42,3 +42,8 @@ class BasePage:
         """Find element and get text"""
         element = self.wait_until_displayed(xpath=xpath)
         return element.text
+
+    def select_field(self, xpath, value):
+        from selenium.webdriver.support.select import Select
+        select = Select(self.wait_until_clickable(xpath=xpath))
+        select.select_by_visible_text(value)

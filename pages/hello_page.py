@@ -1,7 +1,10 @@
 from constants.hello_page import HelloPageConsts
 from pages.base_page import BasePage
 from pages.header import Header
+<<<<<<< HEAD
 from pages.utils import log_decorator
+=======
+>>>>>>> origin/homework
 
 
 class HelloPage(BasePage):
@@ -11,7 +14,10 @@ class HelloPage(BasePage):
         self.constants = HelloPageConsts()
         self.header = Header(self.driver)
 
+<<<<<<< HEAD
     @log_decorator
+=======
+>>>>>>> origin/homework
     def verify_success_sign_up(self, username):
         """Verify success Sign Up using hello message"""
         username = username.lower()

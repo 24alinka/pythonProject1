@@ -1,5 +1,6 @@
 from constants.header import HeaderConsts
 from pages.base_page import BasePage
+from pages.utils import log_decorator
 
 
 class Header(BasePage):
@@ -8,8 +9,14 @@ class Header(BasePage):
         super().__init__(driver)
         self.constants = HeaderConsts()
 
+    @log_decorator
     def navigate_to_create_post_page(self):
         """Click on create post button"""
         self.click(self.constants.CREATE_POST_BUTTON_XPATH)
         from pages.create_post_page import CreatePostPage
         return CreatePostPage(self.driver)
+
+    def open_chat_page(self):
+        self.click(xpath=self.constants.CHAT_XPATH)
+        from pages.chat_page import ChatPage
+        return ChatPage(self.driver)

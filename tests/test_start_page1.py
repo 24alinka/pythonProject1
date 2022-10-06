@@ -1,6 +1,6 @@
 import logging
 
-from pages.utils import User
+from pages.utils import User, Post
 
 
 class TestStartPage:
@@ -167,3 +167,36 @@ class TestStartPage:
         # Verify successful Login
         hello_page.verify_success_sign_up(username="tsetAlinkaTest")
         self.log.info("Hello message was verified")
+
+    def test_folowing(self, start_page, random_user):
+        """
+            - Pre-conditions:
+                - Sign up as a user (user1)
+                - Create a post
+                - Sign Out
+                - Sign Up as the other user (user2)
+            - Steps:
+                - Search  for post by user1
+                - Navigate to post
+                - Navigate to the user profile
+                - Follow the user
+                - Navigate to user2 profile
+                - Verify following tab
+            """
+        # Sign Up as a user1
+        hello_page = start_page.sign_up_and_verify(random_user)
+        # Navigate to create Post Page
+        create_post_page = hello_page.header.navigate_to_create_post_page()
+        # Create Post
+        post = Post()
+        post.fill_default()
+        create_post_page.create_post_with_all(
+            Post(post.title, post.body, select="Приватне повідомлення", checkbox="yes"))
+        # Sign Out
+        start_page_return = create_post_page.header.sign_out_click()
+        # Sign Up as a User2
+        user = User()
+        user.fill_data()
+        start_page_return.sign_up_and_verify(user)
+        # Search  for post by user1
+        start_page.header.search_previously_created_post(post, user)

@@ -67,11 +67,15 @@ class User:
 
 class Post:
 
-    def __init__(self, title="", body=""):
+    def __init__(self, title="", body="", select="Загальнодоступне", checkbox=""):
         self.title = title
         self.body = body
+        self.select = select
+        self.checkbox = checkbox
 
     def fill_default(self):
         """Fill fields using random data"""
         self.title = random_str(15)
         self.body = random_str(200)
+        self.select = "Загальнодоступне"
+        self.checkbox = "yes"

@@ -25,3 +25,4 @@ class CreatePostPageConsts:
     POST_SELECT_GROUP_MESSAGE_TEXT = "Group Message"
     SAVED_POST_TITLE_XPATH = ".//div[@class='d-flex justify-content-between']/h2"
     SAVED_POST_BODY_XPATH = ".//div[@class='body-content'][2]/p"
+    CLICK_ON_PROFILE_FROM_POST_XPATH = ".//a[contains(text(),'{username}')]"
